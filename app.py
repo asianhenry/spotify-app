@@ -6,6 +6,8 @@ import json
 
 app = Flask(__name__)
 
+
+
 @app.route('/')
 def homepage():
 
@@ -30,6 +32,7 @@ def homepage():
     post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload, headers=headers)
 
     response_data = json.loads(post_request.content)
+    return(CLIENT_ID)
 
     if 'error' in response_data:
         abort(400)
