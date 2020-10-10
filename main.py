@@ -48,7 +48,7 @@ def index():
     return redirect(auth_url)
 
 
-@app.route("/callback/q")
+@app.route("/callback")
 def callback():
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
