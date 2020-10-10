@@ -28,7 +28,7 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 # Server-side Parameters
 CLIENT_SIDE_URL = "http://127.0.0.1"
 PORT = 8080
-REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
+REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
 SCOPE = 'user-read-email user-top-read'
 
 auth_query_parameters = {
@@ -88,13 +88,41 @@ def callback():
     top_50_url = "{}/me/top/artists?time_range=long_term&limit=50".format(SPOTIFY_API_URL)
     top_50 = requests.get(top_50_url, headers=authorization_header).json()
 
+    top_50_url_tracks = "{}/me/top/tracks?time_range=long_term&limit=50".format(SPOTIFY_API_URL)
+    top_50_artists = requests.get(top_50_url_tracks, headers=authorization_header).json()
+
+    tracks = []
+    track_info = {}
+    for i in range(50):
+        track_info['track'] = top_50_artists['items'][i]['name']
+        track_info['artist'] = top_50_artists['items'][i]['album']['artists'][0]['name']
+        track_info['album'] = top_50_artists['items'][i]['album']['name']
+        track_info['id'] = top_50_artists['items'][i]['id']
+        tracks.append(track_info)
+        track_info = {}
+
+
+
+
     artists=[]
     genres=[]
+    artist_id = []
     popularity=[]
     for i in range(50):
         artists.append(top_50['items'][i]['name'])
         genres.append(top_50['items'][i]['genres'])
         popularity.append(top_50['items'][i]['popularity'])
+        artist_id.append(top_50['items'][i]['id'])
+
+    top_artists=[]
+    artist_info = {}
+    for i in range(50):
+        artist_info['artist'] = artists[i]
+        artist_info['id'] = artist_id[i]
+        artist_info['popularity'] = popularity[i]
+        artist_info['genres'] = genres[i]
+        top_artists.append(artist_info)
+        artist_info={}
     
     #mean_pop=popularity.mean()
     genres_complete = []
@@ -104,10 +132,10 @@ def callback():
 
     user_data['name'] = name
     user_data['id'] = id
-    user_data['top_50_artists'] = artists
+    user_data['top_50_artists'] = top_artists
     user_data['genres'] = genres_complete
-    #user_data['average_artist_popularity'] = mean
     user_data['date_updated'] = today = date.today()
+    user_data['top_50_tracks']= tracks
     
 
 
