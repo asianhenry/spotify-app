@@ -2,7 +2,7 @@ import json
 from flask import Flask, request, redirect, g, render_template, jsonify
 import requests
 from urllib.parse import quote
-from config import client_id, client_secret
+import os
 import base64
 from datetime import date
 
@@ -15,8 +15,10 @@ from datetime import date
 app = Flask(__name__)
 
 #  Client Keys
-CLIENT_ID = client_id
-CLIENT_SECRET = client_secret
+# CLIENT_ID = client_id
+# CLIENT_SECRET = client_secret
+CLIENT_ID = os.environ.get('CLIENT_ID')
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
