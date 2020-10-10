@@ -28,9 +28,8 @@ API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 # Server-side Parameters
-CLIENT_SIDE_URL = "http://127.0.0.1"
-PORT = 8080
-REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
+CLIENT_SIDE_URL = "https://spotify-user-music-taste.herokuapp.com"
+REDIRECT_URI = "{}/callback".format(CLIENT_SIDE_URL
 SCOPE = 'user-read-email user-top-read'
 
 auth_query_parameters = {
