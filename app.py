@@ -140,7 +140,7 @@ def callback():
     
 
 
-    return jsonify(user_data)
+    return flask.jsonify(user_data)
 
 
 if __name__ == "__main__":
