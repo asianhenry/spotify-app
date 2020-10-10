@@ -16,6 +16,8 @@ app = Flask(__name__)
 
 
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.config['JSON_SORT_KEYS'] = False
+
 #  Client Keys
 # CLIENT_ID = client_id
 # CLIENT_SECRET = client_secret
@@ -133,12 +135,14 @@ def callback():
         for a in i:
             genres_complete.append(a)
 
+
+    user_data['date_updated'] = today = date.today()
     user_data['name'] = name
     user_data['id'] = id
     user_data['top_50_artists'] = top_artists
-    user_data['genres'] = genres_complete
-    user_data['date_updated'] = today = date.today()
     user_data['top_50_tracks']= tracks
+    user_data['genres'] = genres_complete
+    
     
 
 
