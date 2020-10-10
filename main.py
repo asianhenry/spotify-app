@@ -14,6 +14,8 @@ from datetime import date
 
 app = Flask(__name__)
 
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 #  Client Keys
 CLIENT_ID = client_id
 CLIENT_SECRET = client_secret
@@ -93,6 +95,8 @@ def callback():
 
     tracks = []
     track_info = {}
+
+    
     for i in range(50):
         track_info['track'] = top_50_artists['items'][i]['name']
         track_info['artist'] = top_50_artists['items'][i]['album']['artists'][0]['name']
@@ -100,6 +104,16 @@ def callback():
         track_info['id'] = top_50_artists['items'][i]['id']
         tracks.append(track_info)
         track_info = {}
+
+    # track_name = []
+    # track_artist = []
+    # track_album = []
+    #track_
+    # for i in range(50):
+    #     artists.append(top_50['items'][i]['name'])
+    #     genres.append(top_50['items'][i]['genres'])
+    #     popularity.append(top_50['items'][i]['popularity'])
+    #     artist_id.append(top_50['items'][i]['id'])
 
 
 

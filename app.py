@@ -14,6 +14,8 @@ from datetime import date
 
 app = Flask(__name__)
 
+
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 #  Client Keys
 # CLIENT_ID = client_id
 # CLIENT_SECRET = client_secret
@@ -140,7 +142,7 @@ def callback():
     
 
 
-    return flask.jsonify(user_data)
+    return jsonify(user_data)
 
 
 if __name__ == "__main__":
