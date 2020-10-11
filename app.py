@@ -145,9 +145,9 @@ def callback():
     user_data['genres'] = genres_complete
 
 
-    #mongo_password = os.environ.get('MONGO_PASSWORD')
+    mongo_uri = os.environ.get('MONGO_PASSWORD')
     #client = pymongo.MongoClient(f"mongodb+srv://user:{mongo_password}@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
-    client = pymongo.MongoClient("mongodb+srv://user:user@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
+    client = pymongo.MongoClient(mongo_uri)
     db = client.test
 
     # try:
