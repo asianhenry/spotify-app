@@ -159,12 +159,12 @@ def callback():
     for i in range(client.spotify['user-data'].count_documents({})):
         try:
             if mongo_data['id'] == str(spotify_data[i]['id']):
+                break
                 client.spotify['user-data'].replace_one(
-                {"id":mongo_data['id']},mongo_data)
-                break
-            else:
-                client.spotify['user-data'].insert_one(mongo_data)
-                break
+                {"id":mongo_data['id']},mongo_data, upsert = True)
+            # else:
+            #     client.spotify['user-data'].insert_one(mongo_data)
+            #     break
         except:
             pass
 

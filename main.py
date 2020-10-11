@@ -166,11 +166,11 @@ def callback():
         try:
             if mongo_data['id'] == str(spotify_data[i]['id']):
                 client.spotify['user-data'].replace_one(
-                {"id":mongo_data['id']},mongo_data)
+                {"id":mongo_data['id']},mongo_data, upsert=True)
                 break
-            else:
-                client.spotify['user-data'].insert_one(mongo_data)
-                break
+            # else:
+            #     client.spotify['user-data'].insert_one(mongo_data)
+            #     break
         except:
             pass
 
