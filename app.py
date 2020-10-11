@@ -154,7 +154,7 @@ def callback():
     #     client.spotify['user-data'].replace_one(
     #     {"id":user_data['id']},user_data) 
     # except:
-    client.spotify['user-data'].insert_one(user_data)
+    #client.spotify['user-data'].insert_one(user_data)
 
     return jsonify(user_data)
 
