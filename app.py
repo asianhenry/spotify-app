@@ -150,11 +150,11 @@ def callback():
     client = pymongo.MongoClient("mongodb+srv://user:user@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
     db = client.test
 
-    try:
-        client.spotify['user-data'].replace_one(
-        {"id":user_data['id']},user_data) 
-    except:
-        client.spotify['user-data'].insert_one(user_data)
+    # try:
+    #     client.spotify['user-data'].replace_one(
+    #     {"id":user_data['id']},user_data) 
+    # except:
+    client.spotify['user-data'].insert_one(user_data)
 
     return jsonify(user_data)
 
