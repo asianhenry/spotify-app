@@ -158,8 +158,8 @@ def callback():
         if mongo_data['id'] == spotify_data[i]['id']:
             client.spotify['user-data'].replace_one(
             {"id":mongo_data['id']},mongo_data)
-    else:
-        client.spotify['user-data'].insert_one(mongo_data)
+        else:
+            client.spotify['user-data'].insert_one(mongo_data)
 
     return jsonify(user_data)
 
