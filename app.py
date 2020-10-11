@@ -144,19 +144,21 @@ def callback():
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
 
+    return jsonify(user_data)
+
 
     mongo_uri = os.environ.get('MONGO_PASSWORD')
-    #client = pymongo.MongoClient(f"mongodb+srv://user:{mongo_password}@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
+  
     client = pymongo.MongoClient(mongo_uri)
     db = client.test
 
-    # try:
-    #     client.spotify['user-data'].replace_one(
-    #     {"id":user_data['id']},user_data) 
-    # except:
-    #client.spotify['user-data'].insert_one(user_data)
+    try:
+        client.spotify['user-data'].replace_one(
+        {"id":user_data['id']},user_data) 
+    except:
+    client.spotify['user-data'].insert_one(user_data)
 
-    return jsonify(user_data)
+    
 
 
 if __name__ == "__main__":

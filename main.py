@@ -2,10 +2,11 @@ import json
 from flask import Flask, request, redirect, g, render_template, jsonify, session
 import requests
 from urllib.parse import quote
-from config import client_id, client_secret
+from config import client_id, client_secret, mongo_uri
 import base64
 from datetime import date
-
+import pymongo
+import dns
 
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
@@ -145,21 +146,35 @@ def callback():
         for a in i:
             genres_complete.append(a)
 
-    user_data['date_updated'] = today = date.today()
+    user_data['date_updated'] = date.today().strftime("%m/%d/%Y")
     user_data['name'] = name
     user_data['id'] = id
     user_data['top_50_artists'] = top_artists
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
 
-    session['user_data'] = user_data
-    # return jsonify(user_data)
-    return redirect(f"{CLIENT_SIDE_URL}:{PORT}/user_dash")
+    return jsonify(user_data)
+
+    client = pymongo.MongoClient(mongo_uri)
+    
+    db = client.test
+
+    try:
+        client.spotify['user-data'].replace_one(
+        {"id":user_data['id']},user_data) 
+    except:
+        client.spotify['user-data'].insert_one(user_data)
+
+    
+
+    #session['user_data'] = user_data
+    #return jsonify(user_data)
+    #return redirect(f"{CLIENT_SIDE_URL}:{PORT}/user_dash")
 
 @app.route("/user_dash")
 def user_dashboard():
-    return jsonify(session['user_data'])
-    #return render_template("index.html")
+    #return jsonify(session['user_data'])
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
