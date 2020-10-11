@@ -163,11 +163,16 @@ def callback():
     spotify_data = client.spotify['user-data'].find()
 
     for i in range(client.spotify['user-data'].count_documents({})):
-        if mongo_data['id'] == spotify_data[i]['id']:
-            client.spotify['user-data'].replace_one(
-            {"id":mongo_data['id']},mongo_data)
-        else:
-            client.spotify['user-data'].insert_one(mongo_data)
+        try:
+            if mongo_data['id'] == str(spotify_data[i]['id']):
+                client.spotify['user-data'].replace_one(
+                {"id":mongo_data['id']},mongo_data)
+                break
+            else:
+                client.spotify['user-data'].insert_one(mongo_data)
+                break
+        except:
+            pass
 
   
     
