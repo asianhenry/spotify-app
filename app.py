@@ -25,6 +25,7 @@ app.config['JSON_SORT_KEYS'] = False
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
+
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
 SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
@@ -143,7 +144,9 @@ def callback():
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
 
-    client = pymongo.MongoClient("mongodb+srv://user:user@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
+
+    mongo_password = os.environ.get('MONGO_PASSWORD')
+    client = pymongo.MongoClient(f"mongodb+srv://user:{mongo_password}@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
     db = client.test
 
     try:
