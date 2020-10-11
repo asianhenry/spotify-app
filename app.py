@@ -152,10 +152,13 @@ def callback():
     client = pymongo.MongoClient(mongo_uri)
     db = client.test
 
-    try:
-        client.spotify['user-data'].replace_one(
-        {"id":mongo_data['id']},mongo_data) 
-    except:
+    spotify_data = client.spotify['user-data'].find()
+
+    for i in range(client.spotify['user-data'].count_documents({})):
+        if mongo_data['id'] == spotify_data[i]['id']:
+            client.spotify['user-data'].replace_one(
+            {"id":mongo_data['id']},mongo_data)
+    else:
         client.spotify['user-data'].insert_one(mongo_data)
 
     return jsonify(user_data)
