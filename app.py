@@ -146,8 +146,8 @@ def callback():
 
 
     #mongo_password = os.environ.get('MONGO_PASSWORD')
-    client = pymongo.MongoClient(f"mongodb+srv://user:{mongo_password}@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
-    client = pymongo.MongoClient(f"mongodb+srv://user:user@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
+    #client = pymongo.MongoClient(f"mongodb+srv://user:{mongo_password}@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://user:user@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
     db = client.test
 
     try:
