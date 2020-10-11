@@ -145,7 +145,8 @@ def callback():
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
 
-    return jsonify(user_data)
+    
+    mongo_data = user_data.copy()
 
   
     client = pymongo.MongoClient(mongo_uri)
@@ -153,9 +154,11 @@ def callback():
 
     try:
         client.spotify['user-data'].replace_one(
-        {"id":user_data['id']},user_data) 
+        {"id":mongo_data['id']},mongo_data_data) 
     except:
-        client.spotify['user-data'].insert_one(user_data)
+        client.spotify['user-data'].insert_one(mongo_data)
+
+    return jsonify(user_data)
 
     
 
