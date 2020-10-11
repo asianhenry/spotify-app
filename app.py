@@ -148,8 +148,10 @@ def callback():
     
     mongo_data = user_data.copy()
 
+    MONGO_CONN = "{}".format(mongo_uri)
+
   
-    client = pymongo.MongoClient(mongo_uri)
+    client = pymongo.MongoClient(MONGO_CONN)
     db = client.test
 
     spotify_data = client.spotify['user-data'].find()
