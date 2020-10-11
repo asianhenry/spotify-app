@@ -5,7 +5,8 @@ from urllib.parse import quote
 import os
 import base64
 from datetime import date
-
+import pymongo
+import dns
 
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
@@ -135,16 +136,21 @@ def callback():
         for a in i:
             genres_complete.append(a)
 
-
-    user_data['date_updated'] = today = date.today()
+    user_data['date_updated'] = date.today().strftime("%m/%d/%Y")
     user_data['name'] = name
     user_data['id'] = id
     user_data['top_50_artists'] = top_artists
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
-    
-    
 
+    client = pymongo.MongoClient("mongodb+srv://user:user@spotify-cluster.gxw8t.mongodb.net/test?retryWrites=true&w=majority")
+    db = client.test
+
+    try:
+        client.spotify['user-data'].replace_one(
+        {"id":user_data['id']},user_data) 
+    except:
+        client.spotify['user-data'].insert_one(user_data)
 
     return jsonify(user_data)
 

@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request, redirect, g, render_template, jsonify
+from flask import Flask, request, redirect, g, render_template, jsonify, session
 import requests
 from urllib.parse import quote
 from config import client_id, client_secret
@@ -16,6 +16,9 @@ app = Flask(__name__)
 
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_SORT_KEYS'] = False
+
+app.config['SECRET_KEY'] = "secret key"
+app.config['SESSION_TYPE'] = 'filesystem'
 
 #  Client Keys
 CLIENT_ID = client_id
@@ -75,7 +78,6 @@ def callback():
     token_type = response_data["token_type"]
     expires_in = response_data["expires_in"]
 
-
     user_data = {}
     # Auth Step 6: Use the access token to access Spotify API
     authorization_header = {"Authorization": "Bearer {}".format(access_token)}
@@ -117,8 +119,6 @@ def callback():
     #     artist_id.append(top_50['items'][i]['id'])
 
 
-
-
     artists=[]
     genres=[]
     artist_id = []
@@ -152,8 +152,14 @@ def callback():
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
 
+    session['user_data'] = user_data
+    # return jsonify(user_data)
+    return redirect(f"{CLIENT_SIDE_URL}:{PORT}/user_dash")
 
-    return jsonify(user_data)
+@app.route("/user_dash")
+def user_dashboard():
+    return jsonify(session['user_data'])
+    #return render_template("index.html")
 
 
 if __name__ == "__main__":
