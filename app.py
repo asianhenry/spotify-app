@@ -154,7 +154,7 @@ def callback():
 
     try:
         client.spotify['user-data'].replace_one(
-        {"id":mongo_data['id']},mongo_data_data) 
+        {"id":mongo_data['id']},mongo_data) 
     except:
         client.spotify['user-data'].insert_one(mongo_data)
 
