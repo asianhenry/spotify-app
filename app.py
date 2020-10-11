@@ -24,6 +24,7 @@ app.config['JSON_SORT_KEYS'] = False
 # CLIENT_SECRET = client_secret
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+mongo_uri = os.environ.get('MONGO_PASSWORD')
 
 
 # Spotify URLS
@@ -146,8 +147,6 @@ def callback():
 
     return jsonify(user_data)
 
-
-    mongo_uri = os.environ.get('MONGO_PASSWORD')
   
     client = pymongo.MongoClient(mongo_uri)
     db = client.test
