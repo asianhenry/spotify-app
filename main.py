@@ -107,6 +107,12 @@ def callback():
         track_info['artist'] = top_50_artists['items'][i]['album']['artists'][0]['name']
         track_info['album'] = top_50_artists['items'][i]['album']['name']
         track_info['id'] = top_50_artists['items'][i]['id']
+
+        #get track analysis
+        track_url = "{}/audio-features?ids={}".format(SPOTIFY_API_URL,track_info['id'])
+        track_analysis_data = requests.get(track_url, headers=headers).json()
+        track_info['audio_features'] = track_analysis_data['audio_features']
+
         tracks.append(track_info)
         track_info = {}
 
