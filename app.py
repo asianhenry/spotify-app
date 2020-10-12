@@ -111,7 +111,7 @@ def callback():
 
         #get track analysis
         track_url = "{}/audio-features?ids={}".format(SPOTIFY_API_URL,track_info['id'])
-        track_analysis_data = requests.get(track_url, headers=headers).json()
+        track_analysis_data = requests.get(track_url, headers=authorization_header).json()
         track_info['audio_features'] = track_analysis_data['audio_features']
 
         tracks.append(track_info)
