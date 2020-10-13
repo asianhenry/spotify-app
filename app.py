@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request, redirect, g, render_template, jsonify
+from flask import Flask, request, redirect, g, render_template, jsonify, session
 import requests
 from urllib.parse import quote
 import os
@@ -173,7 +173,5 @@ def user_json_data():
     return jsonify(user_data)
 
     
-
-
 if __name__ == "__main__":
     app.run(debug=True, port=PORT)
