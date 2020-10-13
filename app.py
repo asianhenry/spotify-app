@@ -19,6 +19,7 @@ app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_SORT_KEYS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SESSION_KEY')
+app.config['SESSION_TYPE'] = 'filesystem'
 
 #  Client Keys
 # CLIENT_ID = client_id
