@@ -92,7 +92,7 @@ def user_json_data():
 
     user_data = {}
     # Auth Step 6: Use the access token to access Spotify API
-    authorization_header = {"Authorization": "Bearer {}".format(access_token)}
+    authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
 
     # Get profile data
     user_url = "{}/me".format(SPOTIFY_API_URL)
