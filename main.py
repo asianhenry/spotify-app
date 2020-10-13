@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_SORT_KEYS'] = False
-app.config['SECRET_KEY'] = "secret key"
+app.config['SECRET_KEY'] = "s"
 app.config['SESSION_TYPE'] = 'filesystem'
 
 #  Client Keys
@@ -61,8 +61,8 @@ def index():
 @app.route("/callback")
 def callback():
     # Auth Step 4: Requests refresh and access tokens
-    auth_token = request.args['code']
-    code_payload = {
+    auth_token =  session['auth_token'] = request.args['code']
+    code_payload = session['code_payload'] = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
         "redirect_uri": REDIRECT_URI,
@@ -72,19 +72,47 @@ def callback():
 
     auth = "{}:{}".format(CLIENT_ID, CLIENT_SECRET)
     base64encoded = base64.urlsafe_b64encode(auth.encode('UTF-8')).decode('ascii')
-    headers = {"Authorization": "Basic {}".format(base64encoded)}
+    headers = session['headers'] = {"Authorization": "Basic {}".format(base64encoded)}
     post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload, headers = headers)
 
     # Auth Step 5: Tokens are Returned to Application
     response_data = json.loads(post_request.text)
-    access_token = response_data["access_token"]
+
+    access_token = session["access_token"] =  response_data["access_token"]
     refresh_token = response_data["refresh_token"]
     token_type = response_data["token_type"]
     expires_in = response_data["expires_in"]
 
+    return redirect('/get_user_data')
+
+    
+     
+
+   
+    #redirect(url_for('http://127.0.0.1:8080', json=json.dumps(my_form_dict)), code=307)
+    
+    #return redirect(f"{CLIENT_SIDE_URL}:{PORT}/user_data", user_data = user_data)
+    #session['user_data'] = user_data
+    return jsonify(user_data)
+
+def redirect_page():
+    return redirect(url_for('user_json_data'))
+    #return(request.url)
+    
+    #return render_template("index.html", user_data = user_data)
+
+@app.route("/user_dash")
+def user_dashboard():
+    #return jsonify(session['user_data'])
+    return render_template("index.html")
+
+@app.route("/get_user_data")
+def user_json_data():
+
+
     user_data = {}
     # Auth Step 6: Use the access token to access Spotify API
-    authorization_header = {"Authorization": "Bearer {}".format(access_token)}
+    authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
 
     # Get profile data
     user_url = "{}/me".format(SPOTIFY_API_URL)
@@ -172,31 +200,11 @@ def callback():
 
     client.spotify['user-data'].replace_one(
                 {"id":mongo_data['id']},mongo_data, upsert=True)
-     
-
-   
-    #redirect(url_for('http://127.0.0.1:8080', json=json.dumps(my_form_dict)), code=307)
     
-    #return redirect(f"{CLIENT_SIDE_URL}:{PORT}/user_data", user_data = user_data)
-    #session['user_data'] = user_data
+    client.close()
+
+
     return jsonify(user_data)
-
-def redirect_page():
-    return redirect(url_for('user_json_data'))
-    #return(request.url)
-    
-    #return render_template("index.html", user_data = user_data)
-
-@app.route("/user_dash")
-def user_dashboard():
-    #return jsonify(session['user_data'])
-    return render_template("index.html")
-
-@app.route("/user_data")
-def user_json_data():
-    if 'user_data' in session:
-        user_data = session['data']
-        return jsonify(user_data)
     
     #return render_template("index.html")
     

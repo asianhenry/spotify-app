@@ -169,6 +169,8 @@ def user_json_data():
 
     client.spotify['user-data'].replace_one(
                 {"id":mongo_data['id']},mongo_data, upsert = True)
+    
+    client.close()
   
 
     return jsonify(user_data)
