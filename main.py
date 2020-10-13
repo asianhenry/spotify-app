@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request, redirect, g, render_template, jsonify, session
+from flask import Flask, request, redirect, g, render_template, jsonify, session, url_for
 import requests
 from urllib.parse import quote
 from config import client_id, client_secret, mongo_uri
@@ -17,7 +17,6 @@ app = Flask(__name__)
 
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_SORT_KEYS'] = False
-
 app.config['SECRET_KEY'] = "secret key"
 app.config['SESSION_TYPE'] = 'filesystem'
 
@@ -39,6 +38,8 @@ PORT = 8080
 REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
 SCOPE = 'user-read-email user-top-read'
 
+
+
 auth_query_parameters = {
     "response_type": "code",
     "redirect_uri": REDIRECT_URI,
@@ -54,6 +55,7 @@ def index():
     url_args = "&".join(["{}={}".format(key, quote(val)) for key, val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
     return redirect(auth_url)
+    #return redirect('/user_data')
 
 
 @app.route("/callback")
@@ -160,6 +162,8 @@ def callback():
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
 
+    session['data'] = user_data
+
     mongo_data = user_data.copy()
     
 
@@ -170,20 +174,35 @@ def callback():
                 {"id":mongo_data['id']},mongo_data, upsert=True)
      
 
-  
+   
+    #redirect(url_for('http://127.0.0.1:8080', json=json.dumps(my_form_dict)), code=307)
     
-    
-
+    #return redirect(f"{CLIENT_SIDE_URL}:{PORT}/user_data", user_data = user_data)
+    #session['user_data'] = user_data
     return jsonify(user_data)
 
-    #session['user_data'] = user_data
-    #return jsonify(user_data)
-    #return redirect(f"{CLIENT_SIDE_URL}:{PORT}/user_dash")
+def redirect_page():
+    return redirect(url_for('user_json_data'))
+    #return(request.url)
+    
+    #return render_template("index.html", user_data = user_data)
 
 @app.route("/user_dash")
 def user_dashboard():
     #return jsonify(session['user_data'])
     return render_template("index.html")
+
+@app.route("/user_data")
+def user_json_data():
+    if 'user_data' in session:
+        user_data = session['data']
+        return jsonify(user_data)
+    
+    #return render_template("index.html")
+    
+    
+ 
+
 
 
 if __name__ == "__main__":
