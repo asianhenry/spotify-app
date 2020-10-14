@@ -6,8 +6,10 @@
 // });
 
 
-d3.json(userData).then(function (data) {
-	console.log(data);
-});
+// d3.json(userData).then(function (data) {
+	// console.log(data);
+// });
 
-// console.log(userData);
+console.log(userData);
+
+function(userData)
