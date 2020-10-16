@@ -4,33 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  
+  
   <title>My Spotify Music</title>
   <link rel="shortcut icon" href="#">	
   <link rel="stylesheet" href="style_test.css">
   <script defer src="https://use.fontawesome.com/releases/v5.12.0/js/all.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
-	  <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
-    <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"   integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="   crossorigin="anonymous"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+  <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"   integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="   crossorigin="anonymous"></script>
 
  
-
 
 </head>
 <body>
 	<p>Spotify App</p>
 	
-	<!-- <iframe src="https://open.spotify.com/embed/track/3P3UA61WRQqwCXaoFOTENd" width="300" height="80" frameborder="1" allowtransparency="true" allow="encrypted-media" style="border-radius: 10px;"></iframe> -->
-	
-	
-	
-<div class="container" class = "top_artists_table">	
+
+
+<div class="container-fluid" class = "top_artists_table">	
+
+<!-- <div class="embed-responsive embed-responsive-16by9"> -->
+	<iframe src="https://open.spotify.com/embed/track/3P3UA61WRQqwCXaoFOTENd" width="300" height="80" frameborder="1" allowtransparency="true" allow="encrypted-media" style="border-radius: 10px;"></iframe>
+  
+<!-- </div> -->
 	
 	
 	 <div class="row">
 	
-	  <div class="col-lg-3">
+	  <div class="col-lg-4">
 	  
 	  <div style="height:660px;overflow:auto;">
 	<table class="table table-sm  table-dark">
@@ -54,31 +59,28 @@
       
       </tr>
     </thead>
-    <tbody id = 'track_table'></tbody>
+    <tbody id = 'track_table' class = "embed-responsive-item"></tbody>
   </table>
 		</div>
 		</div>
 		
 		</div>
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 	
 </div>
 	
-		 <div class="container">
+
+
+
+
+
+
+		
+
+
+
+		<div class="container">
        
 
 
