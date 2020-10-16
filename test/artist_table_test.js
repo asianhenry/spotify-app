@@ -3,7 +3,10 @@ var tbody = d3.select("#artist_table");
 
 var artists = hdata["top_50_artists"];
 
-console.log(artists);
+// console.log(artists);
+var topartist = artists[0]['artist']
+
+d3.select("#top_artist").text(topartist)
 
 
 function copyObjectProps(source, keys) {
@@ -34,7 +37,7 @@ var results = copyObjectProps(artists, ['artist', 'image'])
 
 // <iframe src="https://open.spotify.com/embed/track/3P3UA61WRQqwCXaoFOTENd" width="300" height="80" frameborder="1" allowtransparency="true" allow="encrypted-media" style="border-radius: 10px;">
 
-console.log(results);
+// console.log(results);
 
 
 
