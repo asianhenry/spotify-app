@@ -7,7 +7,7 @@ var genres = hdata["genres"];
 var name = hdata['name']
 var profpic = hdata['user_image_url']
 
-console.log(profpic);
+// console.log(profpic);
 
 d3.select("#userName").text(name);
 

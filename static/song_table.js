@@ -8,7 +8,7 @@ var genres = userData["genres"];
 // console.log(genres)
 var name = userData['name']
 var profpic = userData['user_image_url']
-console.log(profpic);
+// console.log(profpic);
 
 d3.select("#userName").text(name);
 
