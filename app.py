@@ -117,7 +117,7 @@ def user_json_data():
         track_info['artist'] = top_50_artists['items'][i]['album']['artists'][0]['name']
         track_info['album'] = top_50_artists['items'][i]['album']['name']
         track_info['id'] = top_50_artists['items'][i]['id']
-        track_info['track_url'] = top_50_artists['items'][i]['external_urls']['spotify']
+        track_info['track_url'] = f"https://open.spotify.com/embed/track/{top_50_artists['items'][i]['id']}"
         
 
         #get track analysis
