@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="./static/style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.12.0/js/all.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	
 	  <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
     <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"   integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="   crossorigin="anonymous"></script>
@@ -22,43 +21,54 @@
 	<p>Spotify App</p>
 	
 	<!-- <iframe src="https://open.spotify.com/embed/track/3P3UA61WRQqwCXaoFOTENd" width="300" height="80" frameborder="1" allowtransparency="true" allow="encrypted-media" style="border-radius: 10px;"></iframe> -->
-		
-    
-<div class="container" class = "top_artists_table">	
-	
-	
-	 <div class="row">
-	
-	  <div class="col-lg-3">
-	  
-	  <div style="height:660px;overflow:auto;">
-	<table class="table table-sm  table-dark">
+			<table>
     <thead>
       <tr>
-      <th style = 'text-align:center; vertical-align: middle' colspan = '2'> Your Top 50 Artists </th>
+      
       </tr>
     </thead>
-    <tbody id = 'artist_table'></tbody>
+    <tbody></tbody>
   </table>
-		</div>
-		</div>
 		
+		
+		 <div class="container">
+       
+
+
+	   <div class="row">
+           
+          <div class="col-md-12">
+            <div id="high-plot"></div>
+          </div>
+		   </div>
+		   
+		    <div class="row">
+           
+          <div class="col-md-12">
+            <div id="bar-plot"></div>
+          </div>
+		   </div>
+		   
+		   
+		   
+		     <div class="row">
+           
+          <div class="col-md-12">
+		  
+	
+            
+          </div>
+		   </div>
+		   
 		  
 		  
-		  <div class="col-lg-8">
-	  <div style="height:660px;overflow:auto;">
-	<table class="table table-sm  table-dark">
-    <thead>
-      <tr>
-      <th style = 'text-align:center; vertical-align: middle' colspan = '4'> Your Top 50 Songs </th>
-      </tr>
-    </thead>
-    <tbody id = 'track_table'></tbody>
-  </table>
-		</div>
-		</div>
+        
+   
+          
+     
+    </div>
 		
-		</div>
+		
 		
 		
 		
@@ -85,7 +95,6 @@
   <!-- <script type="text/javascript" src="./static/music_taste.js"></script> -->
    <!-- <script type="text/javascript" src="./static/bar.js"></script>  -->
    <script type="text/javascript" src="./static/artist_table.js"></script> 
-   <script type="text/javascript" src="./static/song_table.js"></script> 
  
 </body>
 </html>

@@ -154,17 +154,20 @@ def user_json_data():
     genres=[]
     artist_id = []
     popularity=[]
+    artist_imgs = []
     for i in range(50):
         artists.append(top_50['items'][i]['name'])
         genres.append(top_50['items'][i]['genres'])
         popularity.append(top_50['items'][i]['popularity'])
         artist_id.append(top_50['items'][i]['id'])
+        artist_imgs.append(top_50['items'][i]['images'][0]['url'])
 
     top_artists=[]
     artist_info = {}
     for i in range(50):
         artist_info['artist'] = artists[i]
         artist_info['id'] = artist_id[i]
+        artist_info['image'] = artist_imgs[i]
         artist_info['popularity'] = popularity[i]
         artist_info['genres'] = genres[i]
         top_artists.append(artist_info)
