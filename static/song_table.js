@@ -8,8 +8,11 @@ var name = userData['name']
 var profpic = userData['user_img_url']
 
 console.log(profpic);
-d3.select("#userPic").attr('src',profpic);
-d3.select("#userName").text(name);
+
+
+d3.select("#userPic").attr('src',profpic)
+
+d3.select("#userName").text(name)
 
 
 
