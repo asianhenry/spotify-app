@@ -1,3 +1,6 @@
+var genres= userData['genres']
+
+
 function foo(arr) {
   var a = [],
     b = [],
@@ -17,5 +20,5 @@ function foo(arr) {
   return [a, b];
 }
 
-var result = foo(arr);
+var result = foo(genres);
 console.log('[' + result[0] + ']','[' + result[1] + ']')

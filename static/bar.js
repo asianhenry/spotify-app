@@ -93,7 +93,7 @@ function radialBar(data){
 		
 		
     legend: {
-        enabled: false
+        // enabled: false
     },
 		
 		
@@ -129,20 +129,20 @@ function radialBar(data){
                 allowOverlap: true,
                 y: -5,
                 style: {
-                    fontSize: '13px',
+                    fontSize: '12px',
                     color: "white"
                 }
             },
             categories: [
-                   'Danceability' +
+                    'Aeverage Danceability' +
                 '</span></span>',
-                'Energy' +
+                'Average Energy' +
                 '</span></span>',
-                'Valence' +
+                'Average Valence' +
                 '</span></span>',
-				 'Speechiness' +
+				 'Average Speechiness' +
                 '</span></span>',
-				 'Acousticness' +
+				 'Average Acousticness' +
                 '</span></span>',
             ]
         },

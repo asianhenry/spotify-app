@@ -99,7 +99,11 @@ def user_json_data():
     user = requests.get(user_url, headers=authorization_header).json()
     name = user['display_name']
     id = user['id']
-    user_image_url = user['images'][0]['url']
+    try:
+        user_image_url = user['images'][0]['url']
+    except:
+        user_image_url = 'N/A'
+
     limit=50
 
 
@@ -139,7 +143,10 @@ def user_json_data():
         genres.append(top_50['items'][i]['genres'])
         popularity.append(top_50['items'][i]['popularity'])
         artist_id.append(top_50['items'][i]['id'])
-        artist_imgs.append(top_50['items'][i]['images'][0]['url'])
+        try:
+            artist_imgs.append(top_50['items'][i]['images'][0]['url'])
+        except:
+            artist_imgs.append('N/A')
 
     top_artists=[]
     artist_info = {}
