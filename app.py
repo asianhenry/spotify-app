@@ -184,7 +184,8 @@ def user_json_data():
 
 
     #return jsonify(user_data)
-    return render_template("index.html", user_data = user_data)
+    # return render_template("index.html", user_data = user_data)
+    return render_template("index2.html", user_data = user_data)
 
     
 if __name__ == "__main__":
