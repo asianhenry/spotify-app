@@ -170,7 +170,7 @@ def user_json_data():
     user_data['date_updated'] = date.today().strftime("%m/%d/%Y")
     user_data['name'] = name
     user_data['id'] = id
-    user_data['user_img_url'] = user_image_url
+    user_data['user_image_url'] = user_image_url
     user_data['top_50_artists'] = top_artists
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
