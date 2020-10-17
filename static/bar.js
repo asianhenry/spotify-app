@@ -28,7 +28,7 @@ function initialPage(data){
     for (i=0; i<top50_user_tracks_info.length; i++){
         top50_track.push(top50_user_tracks_info[i]['track'])
         top50_album.push(top50_user_tracks_info[i]['album'])
-        top50_audio_features.push(top50_user_tracks_info[i]['artist'])
+        top50_audio_features.push(top50_user_tracks_info[i]['audio_features'])
     }
         
     var danceability = []
@@ -152,128 +152,9 @@ function initialPage(data){
 };
 
 
+
+
 (async function(){
 
     initialPage(userdata);
 })();
-
-    // // Select the button
-    // var button = d3.select("#button");
-
-    // // Select the form
-    // var form_input = d3.select("#form-input");
-
-    // // Create event handlers 
-    // button.on("click", updatePage);
-    // form_input.on("submit",updatePage);
-
-
-    // function updatePage(){
-
-    //     d3.event.preventDefault();
-
-    //     //Selecting the user input:
-    //     subject = d3.select("#subject_ID").node().value;
-
-    //     if (subject == "Darrik"){
-    //         data = data1
-    //     }else if (sibject == Henry){
-    //         data = data2
-    //     }else {
-    //         data = data1
-    //     }
-
-
-
-    //     //updating the display of demographic info based on user request:
-    //     demographic_info = d3.select("#demographic_info");
-    //     demographic_info.html(`<strong>id: </strong> ${id}`);
-    //     demographic_info.append("li").html(`<strong>ethnicity: </strong> ${ethnicity}`);
-    //     demographic_info.append("li").html(`<strong>gender: </strong> ${gender}`);
-    //     demographic_info.append("li").html(`<strong>age: </strong> ${age}`);
-    //     demographic_info.append("li").html(`<strong>location: </strong> ${loc}`);
-    //     demographic_info.append("li").html(`<strong>bbtype: </strong> ${bbtype}`);
-    //     demographic_info.append("li").html(`<strong>wfreq: </strong> ${wfreq}`);
-
-
-    //   //updating the bar chart and bubble chart regarding user request:
-    //     otu_IDs = data.samples[subject].otu_ids;
-    //     otu_samples = data.samples[subject].sample_values; 
-    //     otu_labels = data.samples[subject].otu_labels; 
-        
-    //     otu_IDs_10 = otu_IDs.slice(0,10).map(row => "OTU "+ row).reverse();
-    //     otu_samples_10 = otu_samples.slice(0,10).sort((a,b)=>a-b);
-    //     otu_labels_10 = otu_labels.slice(0,10);
-    
-    //     Plotly.restyle("bar-plot", "x", [otu_samples_10]);
-    //     Plotly.restyle("bar-plot", "y", [otu_IDs_10]);
-
-    //     Plotly.restyle("bubble-plot", "x", [otu_IDs]);
-    //     Plotly.restyle("bubble-plot", "y", [otu_samples]);
-
-
-    //      //Updating Guage Chart:
-    //     // Trig to calc meter point
-    //     var degrees = 180 - ((180/9)*wfreq);
-    //     radius = .5;
-    //     var radians = degrees * Math.PI / 180;
-    //     var x = radius * Math.cos(radians);
-    //     var y = radius * Math.sin(radians);
-
-    //     // Path: may have to change to create a better triangle
-    //     var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
-    //         pathX = String(x),
-    //         space = ' ',
-    //         pathY = String(y),
-    //         pathEnd = ' Z';
-    //     var path = mainPath.concat(pathX,space,pathY,pathEnd);
-
-    //     var data_guag = [{ type: 'scatter',
-    //       x: [0], y:[0],
-    //         marker: {size: 20, color:'850000'},
-    //         showlegend: false,},
-    //       { values: [50, 50/9, 50/9, 50/9, 50/9, 50/9,50/9,50/9, 50/9,50/9],
-    //       rotation: 90,
-    //       text: ["",'0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9'],
-    //         direction: 'clockwise',
-    //       textinfo: 'text',
-    //       textposition:'inside',	  
-    //         marker: {
-    //           colors: ["white","#FAFAD2","#f7f1c0","#f5eeaf","#e1f08c","#b8dc70","#aed75b","#a4d247","#8bb92d","#5d7b1e",'white'],
-    //           labels: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9'],
-    //           hoverinfo: 'none'
-    //         },
-
-    //       hole: .5,
-    //       type: 'pie',
-    //       showlegend: false
-    //     }];
-
-    //     var layout_guag = {
-    //       margin: {
-    //         t: 60,
-    //         pad: 4
-    //       },
-    //       shapes:[{
-    //           layer: 'above',
-    //           type: 'path',
-    //           path: path,
-    //           fillcolor: '850000',
-    //           line: {
-    //             color: '850000'
-    //           }
-    //         }],
-    //       title: { text: "Belly Button Washing Frequency <br>Scrubs per Week" },
-    //       height: 450,
-    //       width: 450,
-    //       xaxis: {zeroline:false, showticklabels:false,
-    //                 showgrid: false, range: [-1, 1]},
-    //       yaxis: {zeroline:false, showticklabels:false,
-    //                 showgrid: false, range: [-1, 1]}
-    //     };
-
-
-    //     Plotly.newPlot('gauge-plot', data_guag, layout_guag);   
-    
-    //   }
-    

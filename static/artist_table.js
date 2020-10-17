@@ -4,7 +4,7 @@ var artists = userData["top_50_artists"];
 
 var topartist = artists[0]['artist']
 
-console.log(topartists);
+console.log(topartist);
 
 d3.select("#top_artist").text(topartist)
 
