@@ -63,14 +63,16 @@ function radialBar(data){
     var total_danceability = 0;
     var total_acousticness = 0;
     var total_energy = 0;
+	var total_speechiness = 0;
 
     for(var i = 0;i<energy.length; i++) {
         total_duration += duration_ms[i];
         total_popularity += top50_popularity[i];
         total_happiness += Happiness[i];
         total_danceability += danceability[i];
-        total_acousticness += acousticness[i]
-        total_energy += energy[i]
+        total_acousticness += acousticness[i];
+        total_energy += energy[i];
+		total_speechiness += speechiness[i]
     }
 
     var avg_duration = total_duration/ duration_ms.length;
@@ -80,6 +82,7 @@ function radialBar(data){
     var avg_danceability = ((total_danceability / danceability.length));
     var avg_acousticness = ((total_acousticness/acousticness.length));
     var avg_energy = ((total_energy/energy.length)); 
+	var avg_speechiness = ((total_speechiness/speechiness.length)); 
 
     Highcharts.chart('bar-plot', {
 		tooltip: {
@@ -89,8 +92,12 @@ function radialBar(data){
     },
 		
 		
+    legend: {
+        enabled: false
+    },
 		
-        colors: ["#008080","#20B2AA", "#48D1CC","#AFEEEE"],
+		
+        // colors: ["#008080","#20B2AA", "#48D1CC","#AFEEEE"],
         chart: {
             backgroundColor: '',
             type: 'column',
@@ -131,7 +138,11 @@ function radialBar(data){
                 '</span></span>',
                 'Energy' +
                 '</span></span>',
-                'Happiness' +
+                'Valence' +
+                '</span></span>',
+				 'Speechiness' +
+                '</span></span>',
+				 'Acousticness' +
                 '</span></span>',
             ]
         },
@@ -158,8 +169,8 @@ function radialBar(data){
             }
         },
         series: [{
-            colorByPoint: true,
-            data: [avg_danceability,  avg_energy,  avg_happiness]
+            // colorByPoint: true,
+            data: [avg_danceability,  avg_energy,  avg_happiness, avg_speechiness, avg_acousticness]
         }]
     });
 
@@ -272,7 +283,7 @@ function bubble(data){
 
       var layout_bubble = { 
         
-        title: {text: user_name + "'s Top 10 Artists vs. Popularity in Spotify" ,
+        title: {text: "Spotify Popularity Rating of Your Top 10 Artists" ,
         font: {
         color: "white"
         }},
