@@ -108,7 +108,7 @@
             >
               <div class="row align-items-center">
                 <div class="col-md-4">
-                  <h4 class="text-light text-uppercase mb-0">Spotify Analytics</h4>
+                  <h4 class="text-light text-uppercase mb-0">Spotilytics (Spotify Analytics)</h4>
                 </div>
                 <!-- <div class="col-md-5"> -->
                   <!-- <form> -->
@@ -195,7 +195,7 @@
                       <div class="text-right text-secondary">
                         <h5>Top Genre</h5>
                         <!--Insert top Genre from Data-->
-                        <h3 id = "top_genre"></h3>
+                        <h3 class="text-capitalize" id = "top_genre"></h3>
                       </div>
                     </div>
                   </div>
@@ -335,6 +335,13 @@
     </section>
     <!-- end of tables-->
 
+
+
+ 
+
+
+
+
     <!-- Progress/task list-->
 
 
@@ -346,7 +353,7 @@
 			
 			
               <div class="col-xl-6 col-12 mb-4 mb-xl-0">
-                <div class="p-4 rounded"  id="bar-plot" style = "background-color: #212529; height: 500px">
+                <div class="p-4 rounded"  id="radial-bar-plot" style = "background-color: #212529; height: 500px">
                   <h4 class="mb-5">D3 Vis</h4>
 
                 </div>
@@ -385,54 +392,49 @@
 
 
  
- <section>
-  
+ 
+    <section>
       <div class="container-fluid">
-	  
-	  
         <div class="row mb-4 align-items-center">
           <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-		  
-
-		  
             <div class="row mb-4 align-items-center">
-              <div class="col-xl-12 col-12 mb-12 mb-xl-0">
-                <div class="p-4 rounded" style = "background-color: #212529">
-	 
-            <!-- <div id = "bubble-plot"> </div> -->
-		
+			
+			
+              <div class="col-xl-12 col-12 mb-4 mb-xl-0">
+                <div class="p-4 rounded" style = "background-color: #212529; height: 1000px">
+                  
+				  
+				   <div id="stack-bar"  style = "height:850px"> </div>	
+
                 </div>
+				
               </div>
-         
 			  
 			  
 			  
-			  
-			  
+        
+            
+			
+			
+			
+			
+                
+				
+				
+				
+				
+              </div>
             </div>
           </div>
         </div>
-		
-		 </div>
-
-
-
-
-
-
-
-  
+      </div>
+    </section>
     <!-- End of Progress / task list -->
- 
- 
- 
+		
+
 
  
- 
-		
-		
-		
-	</section>	
+ <section>      
 			
  
  
@@ -506,13 +508,15 @@
   <script src="https://d3js.org/d3.v6.min.js"></script>
    
    <script type="text/javascript">var userData = {{ user_data | tojson }};</script>
+   
    <!-- <script type="text/javascript" src="./static/artist_table.js"></script>  -->
   
   <!-- <script type="text/javascript" src="./static/app.js"></script> -->
-  <!-- <script type="text/javascript" src="./static/music_taste.js"></script> -->
+  
    <script type="text/javascript" src="./static/bar.js"></script> 
    <script type="text/javascript" src="./static/artist_table.js"></script> 
    <script type="text/javascript" src="./static/song_table.js"></script> 
+   <script type="text/javascript" src="./static/stack_bar.js"></script>
  
 </body>
 </html>

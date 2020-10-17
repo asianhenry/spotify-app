@@ -84,7 +84,7 @@ function radialBar(data){
     var avg_energy = ((total_energy/energy.length)); 
 	var avg_speechiness = ((total_speechiness/speechiness.length)); 
 
-    Highcharts.chart('bar-plot', {
+    Highcharts.chart('radial-bar-plot', {
 		tooltip: {
         formatter: function () {
             return this.x +' ' + (this.y).toFixed(2);
@@ -314,11 +314,6 @@ function bubble(data){
 
     bubble(userData);
 })();
-
-
-
-
-
 
 
 
