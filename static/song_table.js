@@ -112,3 +112,9 @@ results.forEach((results) => {
 	}
   });
 });
+
+
+
+$(document).ready(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
