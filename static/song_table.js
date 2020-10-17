@@ -5,10 +5,10 @@ var songs = userData["top_50_tracks"];
 
 
 var genres = userData["genres"];
-// console.log(genres)
+
 var name = userData['name']
 var profpic = userData['user_image_url']
-// console.log(profpic);
+
 
 d3.select("#userName").text(name);
 
@@ -38,7 +38,7 @@ function mode(array)
 
 
 var top_genre = mode(genres);
-// console.log(top_genre);
+console.log(top_genre);
 
 d3.select("#top_genre").text(top_genre)
 
