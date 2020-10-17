@@ -1,14 +1,13 @@
 var tbody = d3.select("#track_table");
 
-
 var songs = userData["top_50_tracks"];
-
 
 var genres = userData["genres"];
 
 var name = userData['name']
 var profpic = userData['user_image_url']
 
+console.log(profpic);
 
 d3.select("#userName").text(name);
 
