@@ -11,7 +11,7 @@ console.log(profpic);
 
 d3.select("#userName").text(name);
 
-d3.select("#user_pic").attr('src',profpic);
+d3.select("#userPic").attr('src',profpic);
 
 function mode(array)
 {
