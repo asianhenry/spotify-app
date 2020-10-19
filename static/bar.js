@@ -97,7 +97,7 @@ function radialBar(data){
     },
 		
 		
-        colors: ["#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF"],
+        colors: ["#1e90ff", "#1e90ff", "#1e90ff", "#1e90ff", "#1e90ff"],
         chart: {
             backgroundColor: '',
             type: 'column',

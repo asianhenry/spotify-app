@@ -95,14 +95,14 @@ max-height:800px;
 }
 
 .current{
-  background-color: #1E90FF;
+  background-color: #1e90ff;
   border-radius: 7px;
   box-shadow: 2px 5px 10px #111;
   transition: all .3s;
 }
 
 .current:hover {
-  background-color: #1E90FF;
+  background-color: #1e90ff;
   border-radius: 7px;
   box-shadow: 2px 5px 10px #111;
   transform: translateY(-1px);

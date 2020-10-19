@@ -8,6 +8,7 @@ from datetime import date
 import pymongo
 import dns
 import numpy as np
+from collections import Counter
 
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
