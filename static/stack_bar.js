@@ -95,7 +95,7 @@ function stackBar(data){
         type: 'bar',
         orientation: 'v',
         marker: {
-            color: "#0000f5"
+            color: "#8200e6"
           }
       };
     var trace2 = {
@@ -105,7 +105,7 @@ function stackBar(data){
         type: 'bar',
         orientation: 'v',
         marker: {
-            color: "#ace5ee"
+            color: "#A9A9A9"
           }
     };
     var trace3 = {
@@ -115,7 +115,7 @@ function stackBar(data){
         type: 'bar',
         orientation: 'v',
         marker: {
-            color: "#1e90ff"
+            color: "#bf6bff"
           }
       };
     var trace4 = {

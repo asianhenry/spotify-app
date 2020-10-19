@@ -61,6 +61,14 @@ def tableau():
 
 
 
+
+@app.route("/developers")
+def developers():
+
+    return render_template("developers.html")
+
+
+
 @app.route("/")
 def index():
     # Auth Step 1: Authorization
