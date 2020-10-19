@@ -95,7 +95,7 @@ function stackBar(data){
         type: 'bar',
         orientation: 'v',
         marker: {
-            color: "#8200e6"
+            color: "#104E8B"
           }
       };
     var trace2 = {
@@ -105,7 +105,7 @@ function stackBar(data){
         type: 'bar',
         orientation: 'v',
         marker: {
-            color: "#A9A9A9"
+            color: "#1E90FF"
           }
     };
     var trace3 = {
@@ -115,7 +115,7 @@ function stackBar(data){
         type: 'bar',
         orientation: 'v',
         marker: {
-            color: "#bf6bff"
+            color: "#B0E2FF"
           }
       };
     var trace4 = {
@@ -125,7 +125,7 @@ function stackBar(data){
         name: 'Danceability',
         type: 'bar',
         marker: {
-            color: "#F5F5F5"
+            color: "white"
           },
           
     };
