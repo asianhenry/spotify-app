@@ -87,17 +87,17 @@ function radialBar(data){
     Highcharts.chart('radial-bar-plot', {
 		tooltip: {
         formatter: function () {
-            return this.x +' ' + (this.y).toFixed(2);
+            return 'Average '+this.x +' of Your Top 50 Songs: ' + (this.y).toFixed(2);
         }
     },
 		
 		
     legend: {
-        // enabled: false
+        enabled: false
     },
 		
 		
-        // colors: ["#008080","#20B2AA", "#48D1CC","#AFEEEE"],
+        colors: ["#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF"],
         chart: {
             backgroundColor: '',
             type: 'column',
@@ -134,15 +134,15 @@ function radialBar(data){
                 }
             },
             categories: [
-                    'Aeverage Danceability' +
+                    'Danceability' +
                 '</span></span>',
-                'Average Energy' +
+                'Energy' +
                 '</span></span>',
-                'Average Valence' +
+                'Valence' +
                 '</span></span>',
-				 'Average Speechiness' +
+				 'Speechiness' +
                 '</span></span>',
-				 'Average Acousticness' +
+				 'Acousticness' +
                 '</span></span>',
             ]
         },

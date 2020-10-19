@@ -54,6 +54,7 @@ auth_query_parameters = {
 
 @app.route("/global_user_data")
 def tableau():
+    
 
     return render_template("global_user_data.html")
 
@@ -65,6 +66,32 @@ def index():
     url_args = "&".join(["{}={}".format(key, quote(val)) for key, val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
     return redirect(auth_url)
+
+
+@app.route("/json")
+def json_data():
+    try:
+        authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
+
+        # Get profile data
+        user_url = "{}/me".format(SPOTIFY_API_URL)
+        user = requests.get(user_url, headers=authorization_header).json()
+        name = user['display_name']
+
+        MONGO_CONN = "{}".format(mongo_uri)
+
+    
+        client = pymongo.MongoClient(MONGO_CONN)
+
+        user_json = client.spotify['user-data'].find({'name':name})[0]
+        user_json.pop('_id', None)
+
+        
+        client.close()
+        return render_template("json.html", user_json = user_json)
+    
+    except:    
+        return redirect('/')
 
 
 @app.route("/callback")

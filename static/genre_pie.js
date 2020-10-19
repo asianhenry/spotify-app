@@ -72,7 +72,7 @@ for (var i = 0; i < others.length; i++) {
      others_value.push(others[i][1]);
   }
 
-console.log(others_value)
+// console.log(others_value)
 
 
 var sum = others_value.reduce(function(a, b){
@@ -97,10 +97,9 @@ for (var i = 0; i < topgenres.length; i++) {
   }
   // pielabels.push('others')
   // piedata.push(sum)
-console.log(piedata);
+// console.log(piedata);
 
-console.log(pielabels);
-
+// console.log(pielabels);
 
 
 
@@ -118,7 +117,19 @@ var data = [{
   textinfo: "label+percent",
   textposition: "outside",
   // automargin: true
-}]
+  hoverinfo: 'label+percent',
+  
+   marker: {
+	   
+	colors: ['#1e90ff', '#abcdef', '#1f75fe' , '#0fc0fc' , '#0000cd' ,'#CAE1FF'  ,'#26619c' , '#80daeb' ,'#273be2'  ,'#00bfff'],   
+    line: {
+        color: 'white',
+        width: 2
+    },
+  
+  
+}}]
+
 
 var layout = {
 	
