@@ -182,6 +182,7 @@ def user_json_data():
     user_data['top_50_artists'] = top_artists
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
+    user_data['average_artist_popularity'] = int(round(np.mean(popularity)))
 
 
     

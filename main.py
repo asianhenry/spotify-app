@@ -7,6 +7,7 @@ import base64
 from datetime import date
 import pymongo
 import dns
+import numpy as np
 
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
@@ -199,6 +200,7 @@ def user_json_data():
     user_data['top_50_artists'] = top_artists
     user_data['top_50_tracks']= tracks
     user_data['genres'] = genres_complete
+    user_data['average_artist_popularity'] = int(round(np.mean(popularity)))
 
     session['data'] = user_data
 
