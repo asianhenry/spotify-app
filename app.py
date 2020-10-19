@@ -134,111 +134,113 @@ def callback():
 
 @app.route("/get_user_data")
 def user_json_data():
-
-    user_data = {}
-    # Auth Step 6: Use the access token to access Spotify API
-    authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
-
-    # Get profile data
-    user_url = "{}/me".format(SPOTIFY_API_URL)
-    user = requests.get(user_url, headers=authorization_header).json()
-    name = user['display_name']
-    id = user['id']
     try:
-        user_image_url = user['images'][0]['url']
-    except:
-        user_image_url = 'N/A'
+        user_data = {}
+        # Auth Step 6: Use the access token to access Spotify API
+        authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
 
-    limit=50
-
-
-    top_50_url = "{}/me/top/artists?time_range=long_term&limit=50".format(SPOTIFY_API_URL)
-    top_50 = requests.get(top_50_url, headers=authorization_header).json()
-
-    top_50_url_tracks = "{}/me/top/tracks?time_range=long_term&limit=50".format(SPOTIFY_API_URL)
-    top_50_artists = requests.get(top_50_url_tracks, headers=authorization_header).json()
-
-    
-    tracks = []
-    track_info = {}
-    for i in range(50):
-        track_info['track'] = top_50_artists['items'][i]['name']
-        track_info['artist'] = top_50_artists['items'][i]['album']['artists'][0]['name']
-        track_info['album'] = top_50_artists['items'][i]['album']['name']
-        track_info['id'] = top_50_artists['items'][i]['id']
-        track_info['track_url'] = f"https://open.spotify.com/embed/track/{top_50_artists['items'][i]['id']}"
-        
-
-        #get track analysis
-        track_url = "{}/audio-features?ids={}".format(SPOTIFY_API_URL,track_info['id'])
-        track_analysis_data = requests.get(track_url, headers=authorization_header).json()
-        track_info['audio_features'] = track_analysis_data['audio_features']
-
-        tracks.append(track_info)
-        track_info = {}
-
-
-    artists=[]
-    genres=[]
-    artist_id = []
-    popularity=[]
-    artist_imgs = []
-    for i in range(50):
-        artists.append(top_50['items'][i]['name'])
-        genres.append(top_50['items'][i]['genres'])
-        popularity.append(top_50['items'][i]['popularity'])
-        artist_id.append(top_50['items'][i]['id'])
+        # Get profile data
+        user_url = "{}/me".format(SPOTIFY_API_URL)
+        user = requests.get(user_url, headers=authorization_header).json()
+        name = user['display_name']
+        id = user['id']
         try:
-            artist_imgs.append(top_50['items'][i]['images'][0]['url'])
+            user_image_url = user['images'][0]['url']
         except:
-            artist_imgs.append('N/A')
+            user_image_url = 'N/A'
 
-    top_artists=[]
-    artist_info = {}
-    for i in range(50):
-        artist_info['artist'] = artists[i]
-        artist_info['id'] = artist_id[i]
-        artist_info['image'] = artist_imgs[i]
-        artist_info['popularity'] = popularity[i]
-        artist_info['genres'] = genres[i]
+        limit=50
+
+
+        top_50_url = "{}/me/top/artists?time_range=long_term&limit=50".format(SPOTIFY_API_URL)
+        top_50 = requests.get(top_50_url, headers=authorization_header).json()
+
+        top_50_url_tracks = "{}/me/top/tracks?time_range=long_term&limit=50".format(SPOTIFY_API_URL)
+        top_50_artists = requests.get(top_50_url_tracks, headers=authorization_header).json()
+
         
+        tracks = []
+        track_info = {}
+        for i in range(50):
+            track_info['track'] = top_50_artists['items'][i]['name']
+            track_info['artist'] = top_50_artists['items'][i]['album']['artists'][0]['name']
+            track_info['album'] = top_50_artists['items'][i]['album']['name']
+            track_info['id'] = top_50_artists['items'][i]['id']
+            track_info['track_url'] = f"https://open.spotify.com/embed/track/{top_50_artists['items'][i]['id']}"
+            
+
+            #get track analysis
+            track_url = "{}/audio-features?ids={}".format(SPOTIFY_API_URL,track_info['id'])
+            track_analysis_data = requests.get(track_url, headers=authorization_header).json()
+            track_info['audio_features'] = track_analysis_data['audio_features']
+
+            tracks.append(track_info)
+            track_info = {}
+
+
+        artists=[]
+        genres=[]
+        artist_id = []
+        popularity=[]
+        artist_imgs = []
+        for i in range(50):
+            artists.append(top_50['items'][i]['name'])
+            genres.append(top_50['items'][i]['genres'])
+            popularity.append(top_50['items'][i]['popularity'])
+            artist_id.append(top_50['items'][i]['id'])
+            try:
+                artist_imgs.append(top_50['items'][i]['images'][0]['url'])
+            except:
+                artist_imgs.append('N/A')
+
+        top_artists=[]
+        artist_info = {}
+        for i in range(50):
+            artist_info['artist'] = artists[i]
+            artist_info['id'] = artist_id[i]
+            artist_info['image'] = artist_imgs[i]
+            artist_info['popularity'] = popularity[i]
+            artist_info['genres'] = genres[i]
+            
+            
+            top_artists.append(artist_info)
+            artist_info={}
         
-        top_artists.append(artist_info)
-        artist_info={}
+        #mean_pop=popularity.mean()
+        genres_complete = []
+        for i in genres:
+            for a in i:
+                genres_complete.append(a)
+
+        user_data['date_updated'] = date.today().strftime("%m/%d/%Y")
+        user_data['name'] = name
+        user_data['id'] = id
+        user_data['user_image_url'] = user_image_url
+        user_data['top_50_artists'] = top_artists
+        user_data['top_50_tracks']= tracks
+        user_data['genres'] = genres_complete
+        user_data['average_artist_popularity'] = int(round(np.mean(popularity)))
+
+
+        
+        mongo_data = user_data.copy()
+
+        MONGO_CONN = "{}".format(mongo_uri)
+
     
-    #mean_pop=popularity.mean()
-    genres_complete = []
-    for i in genres:
-        for a in i:
-            genres_complete.append(a)
+        client = pymongo.MongoClient(MONGO_CONN)
 
-    user_data['date_updated'] = date.today().strftime("%m/%d/%Y")
-    user_data['name'] = name
-    user_data['id'] = id
-    user_data['user_image_url'] = user_image_url
-    user_data['top_50_artists'] = top_artists
-    user_data['top_50_tracks']= tracks
-    user_data['genres'] = genres_complete
-    user_data['average_artist_popularity'] = int(round(np.mean(popularity)))
+        client.spotify['user-data'].replace_one(
+                    {"id":mongo_data['id']},mongo_data, upsert = True)
+        
+        client.close()
 
 
-    
-    mongo_data = user_data.copy()
-
-    MONGO_CONN = "{}".format(mongo_uri)
-
-  
-    client = pymongo.MongoClient(MONGO_CONN)
-
-    client.spotify['user-data'].replace_one(
-                {"id":mongo_data['id']},mongo_data, upsert = True)
-    
-    client.close()
-
-
-    #return jsonify(user_data)
-    return render_template("index.html", user_data = user_data)
-    # return render_template("index2.html", user_data = user_data)
+        #return jsonify(user_data)
+        return render_template("index.html", user_data = user_data)
+        # return render_template("index2.html", user_data = user_data)
+    except:
+        return redirect('/')
 
     
 if __name__ == "__main__":
