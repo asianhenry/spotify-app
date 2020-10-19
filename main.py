@@ -49,6 +49,19 @@ auth_query_parameters = {
 }
 
 
+@app.route("/global_user_data")
+def tableau():
+
+    return render_template("global_user_data.html")
+
+
+@app.route("/developers")
+def developers():
+
+    return render_template("developers.html")
+
+
+
 @app.route("/")
 def index():
     # Auth Step 1: Authorization
