@@ -113,7 +113,7 @@ var data = [{
           size: 12,
           color: "white"
         },
-  
+  pull: [0.15, 0, 0,0,0,0,0,0,0,0],
   textinfo: "label+percent",
   textposition: "outside",
   // automargin: true
