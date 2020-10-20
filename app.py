@@ -70,6 +70,19 @@ def developers():
 
 
 @app.route("/")
+def login():
+    # Auth Step 1: Authorization
+
+    return render_template('login.html')
+
+
+
+
+
+
+
+
+@app.route("/login")
 def index():
     # Auth Step 1: Authorization
     url_args = "&".join(["{}={}".format(key, quote(val)) for key, val in auth_query_parameters.items()])

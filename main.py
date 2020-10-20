@@ -62,15 +62,20 @@ def developers():
 
     return render_template("developers.html")
 
-
-
 @app.route("/")
+def login():
+    # Auth Step 1: Authorization
+
+    return render_template('login.html')
+
+
+
+@app.route("/login")
 def index():
     # Auth Step 1: Authorization
     url_args = "&".join(["{}={}".format(key, quote(val)) for key, val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
     return redirect(auth_url)
-    #return redirect('/user_data')
 
 
 @app.route("/callback")
