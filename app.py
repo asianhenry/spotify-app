@@ -103,6 +103,78 @@ def json_data():
         return redirect('/')
 
 
+
+@app.route("/compare")
+def comparison():
+    try:
+        authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
+
+        # Get profile data
+        user_url = "{}/me".format(SPOTIFY_API_URL)
+        user = requests.get(user_url, headers=authorization_header).json()
+        name = user['display_name']
+
+        MONGO_CONN = "{}".format(mongo_uri)
+
+    
+        client = pymongo.MongoClient(MONGO_CONN)
+
+        mygenres = client.spotify['user-data'].find({'name':name})[0]['genres']
+        unique_genres = len(np.unique(mygenres))
+
+        all_users = client.spotify['user-data'].find()
+        db_len = int(client.spotify['user-data'].count_documents({}))
+
+        unique_genres_all = []
+        for i in range(db_len):
+            unique_genres_all.append(len(np.unique(all_users[i]['genres'])))
+
+        average_genres = int(round(np.mean(unique_genres_all)))
+        
+
+        avg_pop = client.spotify['user-data'].find({'name':name})[0]['average_artist_popularity']
+       
+
+        all_users = client.spotify['user-data'].find({})
+        pop =[]
+        for i in range(db_len):
+            try:
+                pop.append(all_users[i]['average_artist_popularity'])
+            except:
+                pass
+  
+        all_avg = int(round(np.mean(pop)))
+        all_artists = []
+        artist_counts = []
+        for i in range(db_len):
+            for k in range(len(all_users[i]['top_50_artists'])):
+                all_artists.append(all_users[i]['top_50_artists'][k]['artist'])
+
+        b = Counter(all_artists)
+        #print(b.most_common(10))
+        most_common = []
+        most_common_value = []
+        for i in range(10):
+            most_common.append(b.most_common(10)[i][0])
+            most_common_value.append(b.most_common(10)[i][1])
+
+        user_stats = {}
+        user_stats['user_unique_genres'] = unique_genres
+        user_stats['average_unique_genres'] = average_genres
+        user_stats['average_user_artist_popularity'] = avg_pop
+        user_stats['average_alluser_artist_popularity'] = all_avg
+        user_stats['most_common_artists'] = most_common
+        user_stats['most_common_artists_counts'] = most_common_value
+
+
+        
+        client.close()
+        return render_template("comparison.html", user_stats = user_stats)
+    
+    except:    
+        return redirect('/')
+
+
 @app.route("/callback")
 def callback():
     # Auth Step 4: Requests refresh and access tokens
