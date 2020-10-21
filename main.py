@@ -87,74 +87,78 @@ def ml():
     from sklearn.cluster import KMeans
     import joblib
 
-    authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
+    try:
+        authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
 
-    # Get profile data
-    user_url = "{}/me".format(SPOTIFY_API_URL)
-    user = requests.get(user_url, headers=authorization_header).json()
-    name = user['display_name']
+        # Get profile data
+        user_url = "{}/me".format(SPOTIFY_API_URL)
+        user = requests.get(user_url, headers=authorization_header).json()
+        name = user['display_name']
 
-    MONGO_CONN = "{}".format(mongo_uri)
-
-
-    client = pymongo.MongoClient(MONGO_CONN)
-
-    top_tracks = client.spotify['user-data'].find({'name':name})[0]['top_50_tracks']
-
-    danceability = []
-    energy = []
-    speechiness = []
-    instrumentalness = []
-    liveness = []
-    valence = []
-    tempo = []
+        MONGO_CONN = "{}".format(mongo_uri)
 
 
+        client = pymongo.MongoClient(MONGO_CONN)
 
-    for i in range(len(top_tracks)):
-        danceability.append(top_tracks[i]['audio_features'][0]['danceability'])
-        energy.append(top_tracks[i]['audio_features'][0]['energy'])   
-        speechiness.append(top_tracks[i]['audio_features'][0]['speechiness'])   
-        instrumentalness.append(top_tracks[i]['audio_features'][0]['instrumentalness']) 
-        liveness.append(top_tracks[i]['audio_features'][0]['liveness']) 
-        valence.append(top_tracks[i]['audio_features'][0]['valence'])  
-        tempo.append(top_tracks[i]['audio_features'][0]['tempo'])  
-       
+        top_tracks = client.spotify['user-data'].find({'name':name})[0]['top_50_tracks']
+
+        danceability = []
+        energy = []
+        speechiness = []
+        instrumentalness = []
+        liveness = []
+        valence = []
+        tempo = []
 
 
-    dance = np.mean(danceability)
-    en = np.mean(energy)
-    speech = np.mean(speechiness)
-    inst = np.mean(instrumentalness)
-    live = np.mean(liveness)
-    val = np.mean(valence)
-    temp = np.mean(tempo)
+
+        for i in range(len(top_tracks)):
+            danceability.append(top_tracks[i]['audio_features'][0]['danceability'])
+            energy.append(top_tracks[i]['audio_features'][0]['energy'])   
+            speechiness.append(top_tracks[i]['audio_features'][0]['speechiness'])   
+            instrumentalness.append(top_tracks[i]['audio_features'][0]['instrumentalness']) 
+            liveness.append(top_tracks[i]['audio_features'][0]['liveness']) 
+            valence.append(top_tracks[i]['audio_features'][0]['valence'])  
+            tempo.append(top_tracks[i]['audio_features'][0]['tempo'])  
+        
+
+
+        dance = np.mean(danceability)
+        en = np.mean(energy)
+        speech = np.mean(speechiness)
+        inst = np.mean(instrumentalness)
+        live = np.mean(liveness)
+        val = np.mean(valence)
+        temp = np.mean(tempo)
+        
+
+        data = [(dance,en,speech,inst,live,val,temp)]
+
+
+        filename = 'finalized_model.sav'
+        loaded_model = joblib.load(filename)
+        predicted_cluster = int(loaded_model.predict(data))
+        df = pd.read_csv('clustered_data.csv')
+        df_selected = df[df['cluster_num'] == predicted_cluster]
+        rec = df_selected.sample(5)
+        rec['uri']=rec['uri'].str.split(':').str.get(2)
+        recs = {}
+        rec_songs = [f'https://open.spotify.com/embed/track/{i}' for i in rec['uri']]
+
+
+        recs['song_recs'] = rec_songs
+        recs['tracks'] = [i for i in rec['track']]
+        recs['artist'] = [i for i in rec['artist']]
+        client.close()
+
+
+        return render_template('ML.html', recs = recs)
+
+    except: 
+
+        return redirect('/login')
+
     
-
-    data = [(dance,en,speech,inst,live,val,temp)]
-
-
-    filename = 'finalized_model.sav'
-    loaded_model = joblib.load(filename)
-    predicted_cluster = int(loaded_model.predict(data))
-    df = pd.read_csv('clustered_data.csv')
-    df_selected = df[df['cluster_num'] == predicted_cluster]
-    rec = df_selected.sample(5)
-    rec['uri']=rec['uri'].str.split(':').str.get(2)
-    recs = {}
-    rec_songs = [f'https://open.spotify.com/embed/track/{i}' for i in rec['uri']]
-
-
-    recs['song_recs'] = rec_songs
-    recs['tracks'] = [i for i in rec['track']]
-    recs['artist'] = [i for i in rec['artist']]
-
-
-
-    return render_template('ML.html', recs = recs)
-
-
-
 
 
 

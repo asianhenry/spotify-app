@@ -134,7 +134,7 @@ def ml():
         recs['song_recs'] = rec_songs
         recs['tracks'] = [i for i in rec['track']]
         recs['artist'] = [i for i in rec['artist']]
-
+        client.close()
 
 
         return render_template('ML.html', recs = recs)
